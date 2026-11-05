@@ -1,10 +1,20 @@
-from fastapi import FastAPI
+from pathlib import Path
 
-app = FastAPI(title="CICD-Demo")
+from fastapi import FastAPI
+from fastapi.responses import FileResponse
+
+app = FastAPI(title="cicd-demo")
+
+INDEX_FILE = Path(__file__).parent / "static" / "index.html"
 
 
 def add(a, b):
     return a + b
+
+
+@app.get("/")
+def index():
+    return FileResponse(INDEX_FILE)
 
 
 @app.get("/health")
